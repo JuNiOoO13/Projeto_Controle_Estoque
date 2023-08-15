@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Projeto_ControleEstoque</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" href="~/Projeto_ControleEstoque.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+      <nav class="nav-bar">
+          <div class="logo-container">
+              <i class="fa-solid fa-bars-staggered" onclick="toggleMenu('menuModal','block')"></i>
+              <a class="logo" asp-area="" asp-controller="Home" asp-action="Index">
+                <span class="my">MY</span>
+                <span class="games">Games</span>
+              </a>
+              
+          </div>
+          <div class="user-container" onclick="toggleMenu('userModal','block')">
+              <span>Claudevan</span>
+              <img src="/assets/Avatar.png"/>
+          </div>
+      </nav>  
+    </header>
+        <main role="main" class="pb-3">
+            <div class="menus">
+                <aside class="menuModal" id="menuModal">
+                   
+                    <ul>
+                        <li class="texts">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                            Gerenciamento
+                        </li>
+                        <li>
+                        <a class="buttons" asp-area="" asp-controller="Home" asp-action="Produtos">
+                                <i class="fa-solid fa-box"></i>
+                                Gerenciar Produtos
+                            </a>
+                       
+                        </li>
+                    </ul>
+                </aside>
+                <aside class="userModal" id="userModal">
+                    <ul>
+                       <li>
+                        <i class="fa-solid fa-user"></i>
+                           Perfil
+                       </li>
+                       <li>
+                        <i class="fa-solid fa-gear"></i>
+                           Configs
+                       </li>
+                       <li>
+                        <i class="fa-solid fa-xmark"></i>
+                           Sair
+                       </li>
+                    </ul>
+                </aside>
+            </div>
+            @RenderBody()
+        </main>
+
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/4029ae22fe.js" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

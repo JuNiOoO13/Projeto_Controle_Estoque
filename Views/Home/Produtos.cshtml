@@ -1,0 +1,117 @@
+﻿
+@model List<Produto>;
+
+@{
+	ViewData["Title"] = "Produtos";
+	int id = 0;
+}
+
+<div class="container">
+	<div class="infos">
+		<h1 class="breadcrumb">Gestão de Produtos</h1>
+		<div style="font-size:14pt">
+			<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+			/<span style="color:black" >@ViewData["Title"]</span>
+		</div>
+	</div>
+	<div class="buttons">
+		<button class="button" >
+			<i class="fa-regular fa-pen-to-square" style="color:rgb(20,20,20);"></i>
+		</button>
+		<button class="button" onclick="toggleMenu('formContainer', 'flex')">
+			<i class="fa-solid fa-circle-plus"  style="color:rgb(20,20,20);"></i>
+		</button>
+	</div>
+	<div class="formContainer" id="formContainer">
+		<p>Cadastrar Produto</p>
+		<form asp-controller="Home" asp-action="Criar" method="post">
+			<input type="text"  asp-for="FirstOrDefault().Nome"  placeholder="Nome" value=""/>
+			<select asp-for="FirstOrDefault().Categoria" >
+				<option value="Digital">Digital</option>
+				<option value="Fisica">Fisica</option>
+			</select>
+			<input type="number" value=""  asp-for="FirstOrDefault().Quantidade" placeholder="Quantidade" />
+			<button type="submit" >
+				<i class="fa-solid fa-paper-plane" style="color:rgb(50,50,50);"></i>
+			</button>
+		</form>
+	</div>
+	<div class="formContainer" id="formContainerUpdate" >
+		<p>Atualizar Produto</p>
+		<form asp-controller="Home" asp-action="Update" method="post">
+			<input type="text" value=""  asp-for="FirstOrDefault().Nome" placeholder="Nome" />
+			<input type="hidden" asp-for="FirstOrDefault().Id"/>
+			<select asp-for="FirstOrDefault().Categoria">
+				<option value="Digital">Digital</option>
+				<option value="Fisica">Fisica</option>
+			</select>
+			<input type="number" value="" asp-for="FirstOrDefault().Quantidade" placeholder="Quantidade" />
+			<button type="submit">
+				<i class="fa-solid fa-paper-plane" style="color:rgb(50,50,50);"></i>
+			</button>
+		</form>
+	</div>
+
+
+	
+		<table class="tabela">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Categoria</th>
+					<th>Nome</th>
+					<th>Quantidade</th>
+					<th>Data</th>
+					<th>Horario</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				
+			</thead>
+			<tbody>
+				@foreach(var produto in Model)
+				{
+					<tr>
+						<td>@produto.Id</td>
+						<td>@produto.Categoria</td>
+						<td>@produto.Nome</td>
+						<td>@produto.Quantidade</td>
+						<td>@($"{produto.DataInclusao.Day} / {produto.DataInclusao.Month} / {produto.DataInclusao.Year}")</td>
+						<td>@($"{produto.DataInclusao.TimeOfDay.Hours} : {produto.DataInclusao.TimeOfDay.Minutes} : {produto.DataInclusao.TimeOfDay.Seconds}")</td>
+
+						<td>
+							<button class="@produto.Id" id="@produto.Id">
+								<i class="fa-regular fa-eye" style="color:deepskyblue"></i>
+							</button>
+						</td>
+							
+							
+						<td>
+							<form asp-controller="Home" asp-action="dbSelectById" method="post">
+								<input type="hidden" value="@produto.Id" name="id" >
+								<button class="@produto.Id" id="@produto.Id" type="submit" onclick="toggleMenu('formContainerUpdate', 'flex')">
+									<i class="fa-regular fa-pen-to-square" style="color:white"></i>
+								</button>
+							</form>
+						
+							
+						</td>
+
+						<td>
+							<form asp-controller="Home" asp-action="Delete" method="post">
+								<input type="hidden" value="@produto.Id" name="id" id="id">
+								<button type="submit" >
+									<i class="fa-regular fa-trash-can" style="color:red"></i>
+								</button>
+							</form>
+						
+						</td>
+
+					</tr>
+				}
+				
+			</tbody>
+		</table>
+	</div>
+
